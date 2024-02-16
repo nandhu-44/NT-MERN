@@ -1,0 +1,174 @@
+body {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin: 0;
+  background-image: url("../img/background.avif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-h1 {
+  font-size: 2rem;
+  color: #081e4f;
+  text-align: center;
+  width: 70%;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+
+.form-container {
+  width: 50%;
+}
+
+.image-container {
+  padding-left: 20px;
+  width: 50%;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: calc(100% - 50%);
+}
+
+form input {
+  margin-bottom: 10px;
+  height: 40px;
+  width: 67.5%;
+  border-radius: 15px;
+}
+
+form input[type="email"],
+form input[type="password"] {
+  padding-left: 15px;
+  font-size: 0.7rem;
+  border: 2px solid #126eff;
+  font-weight: bold;
+}
+
+form button {
+  margin-top: 10px;
+  height: 40px;
+  width: 70%;
+  border-radius: 15px;
+}
+
+.google-button {
+  font-weight: bold;
+  background-image: url("../icons/google.svg");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  padding-left: 30px;
+}
+
+.facebook-button {
+  font-weight: bold;
+  background-image: url("../icons/facebook.svg");
+  background-repeat: no-repeat;
+  background-position: 20px center;
+  padding-left: 30px;
+}
+
+.login-button {
+  font-weight: bold;
+  background-color: #126eff;
+  color: white;
+  border: none;
+  padding-left: 30px;
+}
+
+.login-button:hover {
+  background-color: #0553d0;
+  border: 2px solid #19e8ec;
+}
+
+.google-button,
+.facebook-button {
+  background-color: rgb(255, 255, 255);
+  color: rgb(32, 26, 26);
+  border: 2px solid #126eff;
+}
+
+.google-button:hover,
+.facebook-button:hover {
+  border: 2px solid #19e8ec;
+}
+
+.forgot-password {
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 5px;
+  width: 70%;
+}
+
+.continue-with {
+  margin-top: 5px;
+  width: 70%;
+  text-align: center;
+  color: grey;
+}
+
+.create-account {
+  font-size: 0.9rem;
+  font-weight: bold;
+  align-items: center;
+  width: 70%;
+  text-align: center;
+  color: grey;
+  margin-top: 15px;
+}
+
+.forgot-password a,
+.create-account a {
+  color: #126eff;
+  text-decoration: none;
+}
+
+.forgot-password a:hover,
+.create-account a:hover {
+  text-decoration: underline;
+  color: #0553d0;
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    margin: 20px auto 0;
+  }
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-container,
+  .image-container {
+    width: 100%;
+  }
+  .image-container {
+    padding-left: 0;
+  }
+  form input,
+  form button {
+    width: 100%;
+  }
+  .forgot-password,
+  .continue-with,
+  .create-account,
+  .welcome-h1 {
+    width: 100%;
+  }
+}
