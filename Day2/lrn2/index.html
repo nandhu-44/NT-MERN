@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="font-serif">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-amber-300">
+    <div>
+        <h1 class="text-3xl font-bold text-center pt-1">Welcome to my bank</h1>
+    </div>
+    <div class="flex items-center justify-center space-x-5 mt-10">
+        <button id="createAccountButton" onclick="createAccount()"
+            class="text-white bg-blue-800 font-medium rounded-full w-50 py-2 px-4 hover:bg-blue-500 transition duration-200 ease-in-out">
+            Create Account
+        </button>
+        <button id="deleteAccountButton" onclick="deleteAccount()"
+        class="text-white bg-red-500 font-medium rounded-full w-50 py-2 px-4 hover:bg-blue-500 transition duration-200 ease-in-out hidden">
+        Delete Account
+    </button>
+        <button onclick="withdraw()"
+            class="text-white bg-blue-800 font-medium rounded-full w-50 py-2 px-4 hover:bg-blue-500 transition duration-200 ease-in-out">
+            Withdraw
+        </button>
+        <button onclick="deposit()"
+            class="text-white bg-blue-800 font-medium rounded-full w-50 py-2 px-4 hover:bg-blue-500 transition duration-200 ease-in-out">
+            Deposit
+        </button>
+        <button onclick="showBalance()"
+            class="text-white bg-blue-800 font-medium rounded-full w-50 py-2 px-4 hover:bg-blue-500 transition duration-200 ease-in-out">
+            Check Balance
+        </button>
+        <button onclick="showDetails()"
+            class="text-white bg-blue-800 font-medium rounded-full w-50 py-2 px-4 hover:bg-blue-500 transition duration-200 ease-in-out">
+            View Account Details
+        </button>
+        <button onclick="signIn()" id="loginButton"
+            class="text-white bg-green-600 font-medium rounded-full w-50 py-2 px-4 hover:bg-blue-500 transition duration-200 ease-in-out">
+            Login
+        </button>
+        <button onclick="signUp()" id="signUpButton"
+            class="text-white bg-orange-500 font-medium rounded-full w-50 py-2 px-4 hover:bg-yellow-600 transition duration-200 ease-in-out">
+            SignUp
+        </button>
+        <button onclick="signOut()" id="logoutButton"
+            class="text-white bg-red-500 font-medium rounded-full w-50 py-2 px-4 hover:bg-yellow-600 transition duration-200 ease-in-out hidden">
+            Logout
+        </button>
+    </div>
+    <div id="displayDiv" class = "flex-col items-center justify-left font-bold pl-50 ml-20 mt-5 font-mono">
+    </div>
+</body>
+<script src="./script.js"></script>
+
+</html>
