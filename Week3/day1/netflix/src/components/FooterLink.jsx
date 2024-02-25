@@ -1,8 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+Link.defaultProps = { to: "/" };
 
 function FooterLink(props) {
   return (
-    <li className="text-white mr-5 hover:cursor-pointer hover:underline">{props?.text ?? "Link"}</li>
+    <li className="text-white hover:cursor-pointer hover:underline">
+      <Link to={props.to}>
+        {props?.text ?? "Hyperlink"}
+      </Link>
+    </li>
   )
 }
 

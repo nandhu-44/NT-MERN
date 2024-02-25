@@ -8,7 +8,7 @@ function Hero() {
         Unlimited movies, TV shows and more
       </h2>
       {/* TV - SCREEN */}
-      <div class="relative mx-auto mt-12 h-[172px] max-w-[301px] rounded-t-xl border-[8px] border-gray-800 bg-gray-800 md:h-[314px] md:max-w-[512px] dark:border-gray-800">
+      <div class="relative mx-auto mt-12 h-[172px] max-w-[301px] rounded-xl border-[8px] border-gray-800 bg-gray-800 md:h-[314px] md:max-w-[512px] dark:border-gray-800">
         <div class="h-[140px] overflow-hidden rounded-xl md:h-[350px]">
           <video
             autoPlay
