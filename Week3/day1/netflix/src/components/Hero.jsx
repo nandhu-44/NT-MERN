@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 function Hero() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const max = 10;
+    if(count > max)
+    setCount(max);
+  }, [count]);
   return (
     <div className="mt-24 flex h-screen flex-col items-center justify-start text-white">
-      <h1 className="text-2xl font-thin">Welcome Back to Netflix</h1>
+      <h1 className="text-2xl font-thin">
+        Welcome Back to <span onClick={() => setCount(count + 1)}>Netflix</span>{" "}
+        {count}.0
+      </h1>
       <h2 className="text-6xl font-bold">
         Unlimited movies, TV shows and more
       </h2>
@@ -24,7 +34,7 @@ function Hero() {
           </video>
         </div>
       </div>
-      <div class="mt-8 md:mt-16 relative mx-auto h-[17px] max-w-[351px] rounded-b-xl rounded-t-sm bg-gray-900 md:h-[21px] md:max-w-[597px] dark:bg-gray-700">
+      <div class="relative mx-auto mt-8 h-[17px] max-w-[351px] rounded-b-xl rounded-t-sm bg-gray-900 md:mt-16 md:h-[21px] md:max-w-[597px] dark:bg-gray-700">
         <div class="absolute left-1/2 top-0 h-[5px] w-[56px] -translate-x-1/2 rounded-b-xl bg-gray-800 md:h-[8px] md:w-[96px]"></div>
       </div>
     </div>
