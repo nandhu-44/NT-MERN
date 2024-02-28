@@ -26,7 +26,7 @@ function SignIn() {
       setTimeout(() => {
         alert("Logged in successfully!");
       }, 200);
-      navigate("/");
+      navigate("/#");
     } else {
       setLoading(false);
       setTimeout(() => {

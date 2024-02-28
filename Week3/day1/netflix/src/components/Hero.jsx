@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 function Hero() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const max = 10;
-    if(count > max)
-    setCount(max);
-  }, [count]);
   return (
     <div className="mt-24 flex h-screen flex-col items-center justify-start text-white">
-      <h1 className="text-2xl font-thin">
-        Welcome Back to <span onClick={() => setCount(count + 1)}>Netflix</span>{" "}
-        {count}.0
-      </h1>
+      <h1 className="text-2xl font-thin">Welcome Back to Netflix</h1>
       <h2 className="text-6xl font-bold">
         Unlimited movies, TV shows and more
       </h2>

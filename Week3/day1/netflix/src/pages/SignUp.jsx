@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabaseClient from "../database/supabase";
 
-
 function SignUp() {
   const [email, setEmail] = useState("");
   const [fullname, setFullname] = useState("");
@@ -49,16 +48,17 @@ function SignUp() {
           password,
         },
       ]);
-      setLoading(false);
       if (error) {
+        setLoading(false);
         setTimeout(() => {
           alert("An error occured while creating user");
         }, 200);
       } else {
+        setLoading(false);
         setTimeout(() => {
           alert("User created successfully!");
         }, 200);
-        navigate("/signin");
+        navigate("/signin/#");
       }
     }
   };
