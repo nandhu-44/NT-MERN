@@ -17,7 +17,7 @@ code {
     monospace;
 }
 
-#main-div {
+.main-image-area {
   background-image: url("../public/assets/background-img.jpg");
   background-size: cover;
   background-repeat: no-repeat;

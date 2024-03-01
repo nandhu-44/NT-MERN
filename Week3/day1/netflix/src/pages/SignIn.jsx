@@ -36,7 +36,7 @@ function SignIn() {
   };
 
   return (
-    <section class="bg-none">
+    <section class="bg-none main-image-area">
       <div class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
         <div class="backdrop-blur-xs w-full rounded-lg border border-gray-700 bg-neutral-600 bg-opacity-70 bg-clip-padding shadow backdrop-filter sm:max-w-md md:mt-0 xl:p-0">
           <div class="space-y-4 p-6 sm:p-8 md:space-y-6">

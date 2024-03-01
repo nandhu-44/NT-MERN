@@ -9,7 +9,7 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <div className="flex flex-col" id="main-div">
+    <div className="flex flex-col mx-0" id="main">
       <BrowserRouter>
         <Header />
         <Routes>

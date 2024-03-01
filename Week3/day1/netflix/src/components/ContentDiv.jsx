@@ -3,17 +3,17 @@ import React from "react";
 function ContentDiv(props) {
   return (
     <>
-      <div className="h-[2px] w-screen bg-white"></div>
+      <div className="h-[2px] min-w-fit bg-white"></div>
       <div
         className={`flex ${props?.flexType ?? "flex-row"} h-[500px] w-full items-center justify-${props?.flexType === "flex-row" ? "left": "right"} bg-black px-20`}
       >
         <div
-          className={`flex flex-col ${props.flexType === "flex-row" ? "left" : "right"} ${props.flexType === "flex-row" ? "text-left" : "text-right"} w-1/2`}
+          className={`flex flex-col ${props.flexType === "flex-row" ? "left" : "right"} w-1/2`}
         >
-          <h3 className="text-3xl font-bold text-white">
+          <h3 className="text-4xl font-bold text-white py-4">
             {props?.name ?? "Video"}
           </h3>
-          <p className="text-2xl font-semibold text-white">
+          <p className="text-xl font-semibold text-white">
             {props?.description ?? "Description"}
           </p>
         </div>
@@ -33,10 +33,11 @@ function ContentDiv(props) {
               </video>
             </div>
           </div>
-          <div className="flex h-24 w-6 bg-gray-800"></div>
+          <div className="flex h-20 w-4 bg-gray-800"></div>
+          <div className="flex relative h-2 w-48 bg-gray-800"></div>
         </div>
       </div>
-      <div className="h-[2px] w-screen bg-white"></div>
+      <div className="h-[2px] w-fit bg-white"></div>
     </>
   );
 }
