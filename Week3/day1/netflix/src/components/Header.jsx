@@ -34,11 +34,10 @@ function Header() {
   };
 
   // Hamburger handling
-  const hamburgerOpenButton = document.getElementById("hamburger-open");
-  const hamburgerCloseButton = document.getElementById("hamburger-close");
-  const hamburgerExpansion = document.getElementById("hamburger-expansion");
-
   function hamburgerExpand() {
+    const hamburgerOpenButton = document.getElementById("hamburger-open");
+    const hamburgerCloseButton = document.getElementById("hamburger-close");
+    const hamburgerExpansion = document.getElementById("hamburger-expansion");
     hamburgerExpansion.classList.toggle("hidden");
     hamburgerExpansion.classList.toggle("flex");
     hamburgerOpenButton.classList.toggle("hidden");
@@ -46,6 +45,9 @@ function Header() {
   }
 
   function hamburgerClose() {
+    const hamburgerOpenButton = document.getElementById("hamburger-open");
+    const hamburgerCloseButton = document.getElementById("hamburger-close");
+    const hamburgerExpansion = document.getElementById("hamburger-expansion");
     hamburgerExpansion.classList.toggle("hidden");
     hamburgerExpansion.classList.toggle("flex");
     hamburgerOpenButton.classList.toggle("hidden");
@@ -128,7 +130,7 @@ function Header() {
           <select
             name="languages"
             id="languages"
-            className="rounded-lg border-2  border-neutral-900 bg-red-500 px-3 py-2 text-xs text-center font-medium text-white hover:border-red-500  hover:bg-neutral-900 md:text-base lg:text-base"
+            className="rounded-lg border-2  border-neutral-900 bg-red-500 px-3 py-2 text-center text-xs font-medium text-white hover:border-red-500  hover:bg-neutral-900 md:text-base lg:text-base"
             value={language}
             onChange={handleLanguageChange}
           >
