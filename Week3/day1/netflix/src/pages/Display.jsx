@@ -8,11 +8,11 @@ function Display() {
   const navigate = useNavigate();
   const { isAuth } = useContext(UserContext);
   const [genreList, setGenreList] = useState([]);
-  // useEffect(() => {
-  //   if (!isAuth) {
-  //     navigate("/signin");
-  //   }
-  // }, [isAuth, navigate]);
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/signin");
+    }
+  }, [isAuth, navigate]);
 
   useEffect(() => {
     async function fetchMovieList() {
@@ -20,12 +20,6 @@ function Display() {
         "https://api.themoviedb.org/3/%%type%%/%%genre%%?language=en-US&page=%%pageno%%";
       const genres = [
         { name: "top_rated", display_name: "Top Rated Movies", page: 1 },
-        // {
-        //   name: "top_rated",
-        //   display_name: "Top Rated Series",
-        //   type: "tv",
-        //   page: 1,
-        // },
         { name: "now_playing", display_name: "Now Playing", page: 1 },
         { name: "top_rated", display_name: "Popular", page: 2 },
       ];
