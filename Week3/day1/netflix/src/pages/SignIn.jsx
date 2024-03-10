@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import supabaseClient from "../database/supabase";
+import { UserContext } from "../UserContext";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -8,35 +8,17 @@ function SignIn() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const { login } = useContext(UserContext);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    let { data: userData, error } = await supabaseClient
-      .from("user_data")
-      .select("*")
-      .eq("email", email)
-      .eq("password", password);
-    if (error) {
-      alert("An error occured while checking for existing user");
-      console.log(error);
-      return;
-    }
-    if (userData.length > 0) {
-      setLoading(false);
-      setTimeout(() => {
-        alert("Logged in successfully!");
-      }, 200);
-      navigate("/#");
-    } else {
-      setLoading(false);
-      setTimeout(() => {
-        alert("Invalid email or password");
-      }, 200);
-    }
+    login(email, password);
+    navigate("/#");
   };
 
   return (
-    <section class="bg-none main-image-area">
+    <section class="main-image-area bg-none">
       <div class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
         <div class="backdrop-blur-xs w-full rounded-lg border border-gray-700 bg-neutral-600 bg-opacity-70 bg-clip-padding shadow backdrop-filter sm:max-w-md md:mt-0 xl:p-0">
           <div class="space-y-4 p-6 sm:p-8 md:space-y-6">

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "./Button";
 import { Link } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 function Header() {
   const allLanguages = [
@@ -19,6 +20,8 @@ function Header() {
     { name: "russian", value: "Russian" },
     { name: "spanish", value: "Spanish" },
   ];
+
+  const { user, isAuth, logout } = useContext(UserContext);
 
   const storedLanguage = localStorage.getItem("language");
   if (!storedLanguage) localStorage.setItem("language", allLanguages[0].name);
@@ -64,23 +67,41 @@ function Header() {
             alt="Netflix"
           />
         </Link>
-        <div className="justify-auto hidden flex-row items-center space-x-4 px-4 py-3 hover:cursor-pointer sm:flex">
-          <select
-            name="languages"
-            id="languages"
-            className="rounded-lg border-2  border-neutral-900 bg-red-500 px-3 py-2 text-xs  font-normal text-white hover:border-red-500 hover:bg-neutral-900  md:text-base md:font-bold lg:text-base"
-            value={language}
-            onChange={handleLanguageChange}
-          >
-            {allLanguages.map((lang) => (
-              <option className="bg-neutral-900 text-red-400" value={lang.name}>
-                {lang.value}
-              </option>
-            ))}
-          </select>
-          <Button text="Sign Up" to="/signup" />
-          <Button text="Sign In" to="/signin" />
-        </div>
+        {isAuth ? (
+          <div className="justify-auto hidden flex-row items-center space-x-4 px-4 py-3 hover:cursor-pointer sm:flex">
+            <p className="px-6 py-1 text-center text-xs font-medium text-white  md:w-auto md:px-5 md:py-2 md:text-sm md:font-bold lg:text-base">
+              Welcome &nbsp; <span className="text-red-500">{user?.data?.user?.user_metadata?.fullname ?? "Guest"}</span>
+            </p>
+            <button
+              className="w-28 cursor-pointer rounded-lg border-2 border-red-500 px-6 py-1 text-center text-xs font-medium text-white hover:bg-red-500 md:w-auto md:px-5 md:py-2 md:text-sm md:font-bold lg:text-base"
+              onClick={() => logout()}
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <div className="justify-auto hidden flex-row items-center space-x-4 px-4 py-3 hover:cursor-pointer sm:flex">
+            <select
+              name="languages"
+              id="languages"
+              className="rounded-lg border-2  border-neutral-900 bg-red-500 px-3 py-2 text-xs  font-normal text-white hover:border-red-500 hover:bg-neutral-900  md:text-base md:font-bold lg:text-base"
+              value={language}
+              onChange={handleLanguageChange}
+            >
+              {allLanguages.map((lang) => (
+                <option
+                  className="bg-neutral-900 text-red-400"
+                  value={lang.name}
+                >
+                  {lang.value}
+                </option>
+              ))}
+            </select>
+            <Button text="Sign Up" to="/signup" />
+            <Button text="Sign In" to="/signin" />
+          </div>
+        )}
+
         <button
           className="block sm:hidden"
           id="hamburger-open"
@@ -125,25 +146,50 @@ function Header() {
         </button>
         {/* </div> */}
       </header>
-      <div className="hidden flex-col bg-neutral-900" id="hamburger-expansion">
-        <div className="flex flex-col items-end justify-end space-y-4 px-3 py-2 hover:cursor-pointer sm:hidden">
-          <select
-            name="languages"
-            id="languages"
-            className="rounded-lg border-2  border-neutral-900 bg-red-500 px-3 py-2 text-center text-xs font-medium text-white hover:border-red-500  hover:bg-neutral-900 md:text-base lg:text-base"
-            value={language}
-            onChange={handleLanguageChange}
-          >
-            {allLanguages.map((lang) => (
-              <option className="bg-neutral-900 text-red-400" value={lang.name}>
-                {lang.value}
-              </option>
-            ))}
-          </select>
-          <Button text="Sign Up" to="/signup" />
-          <Button text="Sign In" to="/signin" />
+      {isAuth ? (
+        <div
+          className="hidden flex-col bg-neutral-900"
+          id="hamburger-expansion"
+        >
+          <div className="flex flex-col items-end justify-end space-y-4 px-3 py-2 hover:cursor-pointer sm:hidden">
+            <p className="px-2 py-1 text-center text-xs font-medium text-white  md:w-auto md:px-5 md:py-2 md:text-sm md:font-bold lg:text-base">
+              Welcome <span className="text-red-500">{user?.data?.user?.user_metadata?.fullname ?? "Guest"}</span>
+            </p>
+            <button
+              className="w-28 cursor-pointer rounded-lg border-2 border-red-500 px-6 py-1 text-center text-xs font-medium text-white hover:bg-red-500 md:w-auto md:px-5 md:py-2 md:text-sm md:font-bold lg:text-base"
+              onClick={() => logout()}
+            >
+              Logout
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div
+          className="hidden flex-col bg-neutral-900"
+          id="hamburger-expansion"
+        >
+          <div className="flex flex-col items-end justify-end space-y-4 px-3 py-2 hover:cursor-pointer sm:hidden">
+            <select
+              name="languages"
+              id="languages"
+              className="rounded-lg border-2  border-neutral-900 bg-red-500 px-3 py-2 text-center text-xs font-medium text-white hover:border-red-500  hover:bg-neutral-900 md:text-base lg:text-base"
+              value={language}
+              onChange={handleLanguageChange}
+            >
+              {allLanguages.map((lang) => (
+                <option
+                  className="bg-neutral-900 text-red-400"
+                  value={lang.name}
+                >
+                  {lang.value}
+                </option>
+              ))}
+            </select>
+            <Button text="Sign Up" to="/signup" />
+            <Button text="Sign In" to="/signin" />
+          </div>
+        </div>
+      )}
     </>
   );
 }

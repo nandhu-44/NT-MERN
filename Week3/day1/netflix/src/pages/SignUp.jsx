@@ -19,47 +19,30 @@ function SignUp() {
       return;
     }
     setLoading(true);
-    let { data: userData, error } = await supabaseClient
-      .from("user_data")
-      .select("*")
-      .eq("email", email);
+
+    // eslint-disable-next-line
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          fullname,
+          phone: phonenum,
+        },
+      },
+    });
 
     if (error) {
       setLoading(false);
       setTimeout(() => {
-        alert("An error occured while checking for existing user");
+        alert("An error occured while creating user");
       }, 200);
-      return;
-    }
-
-    if (userData.length > 0) {
+    } else {
       setLoading(false);
       setTimeout(() => {
-        alert("A user by that email already exists!");
+        alert("Check your email to verify your account!");
       }, 200);
-      return;
-    } else {
-      // eslint-disable-next-line
-      let { _data, error } = await supabaseClient.from("user_data").insert([
-        {
-          email,
-          full_name: fullname,
-          phone: phonenum,
-          password,
-        },
-      ]);
-      if (error) {
-        setLoading(false);
-        setTimeout(() => {
-          alert("An error occured while creating user");
-        }, 200);
-      } else {
-        setLoading(false);
-        setTimeout(() => {
-          alert("User created successfully!");
-        }, 200);
-        navigate("/signin/#");
-      }
+      navigate("/signin/#");
     }
   };
 

@@ -1,0 +1,19 @@
+.card-container {
+    overflow: auto;
+  }
+  
+  /* Hide scrollbar for Firefox */
+  .card-container::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  
+  .card-container::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  
+  /* Hide scrollbar for other browsers */
+  .card-container {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  

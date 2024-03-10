@@ -1,26 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ContentDiv from "../components/ContentDiv";
 import Hero from "../components/Hero";
+import { UserContext } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 function Center() {
   const [movieList, setMovieList] = useState([]);
+  const { isAuth } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/display");
+    }
+  }, [isAuth, navigate]);
 
   useEffect(() => {
     const fetchMovieList = async () => {
+      const { REACT_APP_HOME_MOVIE_URL } = process.env;
       try {
         let data;
-        const cachedData = localStorage.getItem('movieList');
-        const lastFetch = localStorage.getItem('lastFetch');
+        const cachedData = localStorage.getItem("movieList");
+        const lastFetch = localStorage.getItem("lastFetch");
 
-        if (cachedData && lastFetch && new Date().getTime() - lastFetch < 3600000) {
+        if (
+          cachedData &&
+          lastFetch &&
+          new Date().getTime() - lastFetch < 3600000
+        ) {
           data = JSON.parse(cachedData);
         } else {
-          const response = await fetch(
-            "https://6587d02290fa4d3dabf92599.mockapi.io/movielist",
-          );
+          const response = await fetch(REACT_APP_HOME_MOVIE_URL);
           data = await response.json();
-          localStorage.setItem('movieList', JSON.stringify(data));
-          localStorage.setItem('lastFetch', new Date().getTime());
+          localStorage.setItem("movieList", JSON.stringify(data));
+          localStorage.setItem("lastFetch", new Date().getTime());
         }
 
         setMovieList(data);
