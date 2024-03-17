@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import supabaseClient from "../database/supabase";
 
 function SignUp() {
+  window.scrollTo(0, 0);
   const [email, setEmail] = useState("");
   const [fullname, setFullname] = useState("");
   const [phonenum, setPhonenum] = useState("");
@@ -34,10 +35,28 @@ function SignUp() {
 
     if (error) {
       setLoading(false);
+      console.log(error);
       setTimeout(() => {
         alert("An error occured while creating user");
       }, 200);
     } else {
+      console.log(JSON.stringify(data, null, 2));
+      const { id: uid, email: uemail } = data?.user;
+      const { phone: uphone, fullname: ufullname } = data?.user?.user_metadata;
+      // eslint-disable-next-line
+      const { _udata, uerror } = await supabaseClient
+        .from("users_table")
+        .insert(
+          [{
+            id: uid,
+            email: uemail,
+            phone: uphone,
+            fullname: ufullname,
+            profile_icon:"",
+            bio:""
+          },]
+        );
+
       setLoading(false);
       setTimeout(() => {
         alert("Check your email to verify your account!");
@@ -71,7 +90,7 @@ function SignUp() {
                     id="email"
                     class="block w-full rounded-lg  bg-neutral-800  p-2.5 text-white placeholder-gray-400 focus:border-red-600 focus:outline-none focus:ring-red-600 sm:text-sm "
                     placeholder="name@company.com"
-                    required="true"
+                    required={true}
                   />
                 </div>
 
@@ -90,7 +109,7 @@ function SignUp() {
                     id="fullname"
                     class="block w-full rounded-lg  bg-neutral-800  p-2.5 text-white placeholder-gray-400 focus:border-red-600 focus:outline-none focus:ring-red-600 sm:text-sm "
                     placeholder="Alex Smith"
-                    required="true"
+                    required={true}
                   />
                 </div>
 
@@ -109,7 +128,7 @@ function SignUp() {
                     id="phonenum"
                     class="block w-full rounded-lg  bg-neutral-800 p-2.5 text-white [appearance:textfield] focus:border-red-600 focus:outline-none focus:ring-red-600  sm:text-sm [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                     placeholder="1234567890"
-                    required="true"
+                    required={true}
                   />
                 </div>
 
@@ -128,7 +147,7 @@ function SignUp() {
                     id="password"
                     placeholder="••••••••••"
                     class="block w-full rounded-lg  bg-neutral-800  p-2.5 text-white placeholder-gray-400 focus:border-red-600 focus:outline-none focus:ring-red-600 sm:text-sm "
-                    required="true"
+                    required={true}
                   />
                 </div>
                 <div>
@@ -146,7 +165,7 @@ function SignUp() {
                     id="confirm-password"
                     placeholder="••••••••••"
                     class="block w-full rounded-lg  bg-neutral-800  p-2.5 text-white placeholder-gray-400 focus:border-red-600 focus:outline-none focus:ring-red-600 sm:text-sm "
-                    required="true"
+                    required={true}
                   />
                 </div>
                 <div class="flex items-start">
@@ -155,8 +174,8 @@ function SignUp() {
                       id="terms"
                       aria-describedby="terms"
                       type="checkbox"
-                      class="focus:ring-3 h-4 w-4 rounded  border-gray-600 bg-gray-50 ring-offset-gray-800 focus:outline-none focus:ring-red-600"
-                      required="true"
+                      class="focus:ring-3 h-4 w-4 rounded accent-red-500 border-gray-600 bg-gray-50 ring-offset-gray-800 focus:outline-none focus:ring-red-600"
+                      required={true}
                     />
                   </div>
                   <div class="ml-3 text-sm">

@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../components/Button";
 
 function NotFound() {
+  window.scrollTo(0, 0);
   return (
     <div className="main-image-area flex items-center justify-center px-16">
       <div className="my-44 flex h-auto flex-col items-center justify-center rounded-lg bg-[#2b2d31] bg-opacity-70 p-2 align-middle text-white md:my-32 md:p-20 lg:my-20 lg:p-16">

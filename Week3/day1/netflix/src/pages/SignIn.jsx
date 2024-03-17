@@ -1,15 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 function SignIn() {
+  window.scrollTo(0, 0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { login } = useContext(UserContext);
-
+  const { login, isAuth } = useContext(UserContext);
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/display");
+    }
+  }, [isAuth, navigate]);
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);

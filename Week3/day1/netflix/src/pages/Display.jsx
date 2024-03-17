@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import Card from "../components/Card";
 import "./Display.css";
+import Loader from "../components/Loader";
 
 function Display() {
   const navigate = useNavigate();
   const { isAuth } = useContext(UserContext);
   const [genreList, setGenreList] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!isAuth) {
       navigate("/signin");
@@ -15,6 +17,7 @@ function Display() {
   }, [isAuth, navigate]);
 
   useEffect(() => {
+    const { REACT_APP_TMDB_API_READ_ACCESS_TOKEN: token } = process.env;
     async function fetchMovieList() {
       const baseUrl =
         "https://api.themoviedb.org/3/%%type%%/%%genre%%?language=en-US&page=%%pageno%%";
@@ -32,14 +35,13 @@ function Display() {
               .replace("%%pageno%%", genre.page);
             const res = await fetch(url, {
               headers: {
-                Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
+                Authorization: `Bearer ${token}`,
                 Accept: "application/json",
               },
               method: "GET",
             });
             const data = await res.json();
             data.display_name = genre.display_name;
-            console.log("data", data);
             return data;
           }),
         );
@@ -51,14 +53,30 @@ function Display() {
 
     (async () => {
       fetchMovieList().then((response) => {
-        setGenreList(response);
-        console.log("response", response);
+        if (response.map((r) => r.status).includes(7)) {
+          setGenreList([]);
+        } else {
+          setGenreList(response);
+        }
       });
     })();
   }, []);
 
+  useEffect(() => {
+    if (genreList.length > 0) {
+      setLoading(false);
+    }
+  }, [genreList]);
+
   return (
     <div className="bg-slate-950 px-16 py-20">
+      {loading && <Loader />}
+      <Link
+        to="/all-movies"
+        className="py-6 text-base font-medium text-red-500 hover:underline"
+      >
+        All Movies
+      </Link>
       {genreList?.map((genre) => {
         return (
           <>
@@ -67,15 +85,7 @@ function Display() {
             </h1>
             <div className="card-container flex w-full flex-row gap-5 overflow-x-scroll scroll-smooth py-4 text-white">
               {genre?.results?.map((movie) => {
-                const { backdrop_path, release_date, title } = movie;
-                const image = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
-                return (
-                  <Card
-                    title={title}
-                    image={image}
-                    releaseDate={release_date}
-                  />
-                );
+                return <Card data={movie} />;
               })}
             </div>
           </>

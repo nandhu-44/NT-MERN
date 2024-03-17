@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import ProfileIcon from "./ProfileIcon";
 
 function Header() {
   const allLanguages = [
@@ -21,7 +22,7 @@ function Header() {
     { name: "spanish", value: "Spanish" },
   ];
 
-  const { user, isAuth, logout } = useContext(UserContext);
+  const {  isAuth, logout } = useContext(UserContext);
 
   const storedLanguage = localStorage.getItem("language");
   if (!storedLanguage) localStorage.setItem("language", allLanguages[0].name);
@@ -63,15 +64,13 @@ function Header() {
         <Link to="/" className="flex flex-row items-center">
           <img
             className="w-20 px-2 py-2 md:w-32 lg:w-44 lg:px-4"
-            src="assets/nflxlogo.webp"
+            src="/assets/nflxlogo.webp"
             alt="Netflix"
           />
         </Link>
         {isAuth ? (
           <div className="justify-auto hidden flex-row items-center space-x-4 px-4 py-3 hover:cursor-pointer sm:flex">
-            <p className="px-6 py-1 text-center text-xs font-medium text-white  md:w-auto md:px-5 md:py-2 md:text-sm md:font-bold lg:text-base">
-              Welcome &nbsp; <span className="text-red-500">{user?.data?.user?.user_metadata?.fullname ?? "Guest"}</span>
-            </p>
+              <ProfileIcon />
             <button
               className="w-28 cursor-pointer rounded-lg border-2 border-red-500 px-6 py-1 text-center text-xs font-medium text-white hover:bg-red-500 md:w-auto md:px-5 md:py-2 md:text-sm md:font-bold lg:text-base"
               onClick={() => logout()}
@@ -88,8 +87,9 @@ function Header() {
               value={language}
               onChange={handleLanguageChange}
             >
-              {allLanguages.map((lang) => (
+              {allLanguages.map((lang, index) => (
                 <option
+                  key={index}
                   className="bg-neutral-900 text-red-400"
                   value={lang.name}
                 >
@@ -144,7 +144,6 @@ function Header() {
             />
           </svg>
         </button>
-        {/* </div> */}
       </header>
       {isAuth ? (
         <div
@@ -152,9 +151,7 @@ function Header() {
           id="hamburger-expansion"
         >
           <div className="flex flex-col items-end justify-end space-y-4 px-3 py-2 hover:cursor-pointer sm:hidden">
-            <p className="px-2 py-1 text-center text-xs font-medium text-white  md:w-auto md:px-5 md:py-2 md:text-sm md:font-bold lg:text-base">
-              Welcome <span className="text-red-500">{user?.data?.user?.user_metadata?.fullname ?? "Guest"}</span>
-            </p>
+            <ProfileIcon />
             <button
               className="w-28 cursor-pointer rounded-lg border-2 border-red-500 px-6 py-1 text-center text-xs font-medium text-white hover:bg-red-500 md:w-auto md:px-5 md:py-2 md:text-sm md:font-bold lg:text-base"
               onClick={() => logout()}
@@ -176,8 +173,9 @@ function Header() {
               value={language}
               onChange={handleLanguageChange}
             >
-              {allLanguages.map((lang) => (
+              {allLanguages.map((lang, index) => (
                 <option
+                  key={index}
                   className="bg-neutral-900 text-red-400"
                   value={lang.name}
                 >

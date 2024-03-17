@@ -3,9 +3,11 @@ import ContentDiv from "../components/ContentDiv";
 import Hero from "../components/Hero";
 import { UserContext } from "../UserContext";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 function Center() {
   const [movieList, setMovieList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { isAuth } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -45,9 +47,16 @@ function Center() {
     fetchMovieList();
   }, []);
 
+  useEffect(() => {
+    if (movieList.length > 0) {
+      setLoading(false);
+    }
+  }, [movieList]);
+
   return (
     <>
-      <Hero />
+      {loading && <Loader />}
+      {!loading && <Hero />}
       {movieList.map((movie) => {
         let { heading, video_url, description, id } = movie;
         heading = heading.toLowerCase().includes("heading")
