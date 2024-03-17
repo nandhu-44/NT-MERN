@@ -8,6 +8,7 @@ function Card({ data }) {
   currentPath = currentPath.endsWith("/")
     ? currentPath.slice(0, -1)
     : currentPath;
+    
   let image = `${!backdrop_path?.endsWith("null") ? backdrop_path : poster_path}`;
   if (!image.startsWith("http"))
     image = `https://image.tmdb.org/t/p/w500${backdrop_path}`;
