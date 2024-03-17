@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
+    if (user) return;
     getUser().then((user) => {
       if (user.data.user) {
         setUser(user);
@@ -21,7 +22,7 @@ const AuthProvider = ({ children }) => {
         setUser(null);
       }
     });
-  }, []);
+  }, [user]);
 
   const login = async (email, password) => {
     // eslint-disable-next-line
