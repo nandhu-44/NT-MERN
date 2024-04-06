@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-image: url('assets/magicpattern-grid-pattern-1712296445971.png');
+    background-size: stretch;
+    background-repeat: no-repeat;
+}
