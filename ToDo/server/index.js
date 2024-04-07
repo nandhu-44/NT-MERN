@@ -7,7 +7,7 @@ const routes = require('./routes/route');
 dotenv.config();
 
 app.use(bodyParser.json());
-app.use(cors({ origin: process.env.CLIENT_URL }));
+app.use(cors());
 
 
 console.clear();
