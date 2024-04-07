@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 const Header = () => {
   const { user, logout } = useContext(UserContext);
   const navigate = useNavigate();
+
+  // Handling logout
   const handleLogout = () => {
     logout();
     navigate("/signin");

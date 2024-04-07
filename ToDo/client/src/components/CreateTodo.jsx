@@ -1,7 +1,12 @@
 import React, { useContext, useState } from "react";
-import { Button, Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { UserContext } from "../UserContext";
-import axios from "axios";
+import {
+  HiOutlineXCircle,
+  HiCheckBadge,
+  HiInformationCircle,
+} from "react-icons/hi2";
+import { MdOutlineWarning } from "react-icons/md";
 
 const CreateTodo = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -9,30 +14,81 @@ const CreateTodo = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const { user, addTodo, clearCompletedTodos } = useContext(UserContext);
+  const { user, addTodo, clearCompletedTodos, showAlert } =
+    useContext(UserContext);
 
+  // Handling add todo
   const handleAdd = async () => {
     try {
       addTodo(user._id, title, description);
       setTitle("");
       setDescription("");
+      showAlert({
+        color: "green",
+        icon: HiCheckBadge,
+        title: "Todo added successfully",
+        description: null,
+      });
     } catch (error) {
       console.error(error);
+      showAlert({
+        color: "failure",
+        icon: HiOutlineXCircle,
+        title: "Failed to add todo",
+        description: null,
+      });
     }
   };
 
+  // Handling clear completed todos
   const handleClear = async () => {
     try {
+      const todos = user?.todos;
+      if (todos.length === 0) {
+        showAlert({
+          color: "info",
+          icon: HiInformationCircle,
+          title: "No todos to clear!",
+          description: null,
+        });
+        setClearModal(false);
+        return;
+      }
+      const completedTodos = user?.todos?.filter(
+        (todo) => todo.isCompleted === true,
+      );
+      if (completedTodos && completedTodos.length === 0) {
+        showAlert({
+          color: "warning",
+          icon: MdOutlineWarning,
+          title: "No completed todos to clear!",
+          description: null,
+        });
+        setClearModal(false);
+        return;
+      }
       clearCompletedTodos(user._id);
       setClearModal(false);
+      showAlert({
+        color: "success",
+        icon: HiCheckBadge,
+        title: "Todos cleared successfully",
+        description: null,
+      });
     } catch (error) {
       console.error(error);
+      showAlert({
+        color: "failure",
+        icon: HiOutlineXCircle,
+        title: "Failed to clear todos",
+        description: null,
+      });
     }
   };
 
   return (
     <>
-      <div className="mb-8 flex flex-row items-center justify-center space-x-2">
+      <div className="mb-8 mt-20 flex flex-row items-center justify-center space-x-2">
         <button
           onClick={() => setOpenModal(true)}
           className="flex rounded-md border-0 bg-blue-400 px-4 py-4 text-white hover:bg-blue-500 focus:border-0 focus:ring-0"
@@ -86,11 +142,7 @@ const CreateTodo = () => {
           </button>
         </Modal.Footer>
       </Modal>
-      <Modal
-        show={clearModal}
-        onClose={() => setClearModal(false)}
-        dismissible
-      >
+      <Modal show={clearModal} onClose={() => setClearModal(false)} dismissible>
         <Modal.Header>Clear Todos</Modal.Header>
         <Modal.Body>
           <div className="text-center">

@@ -17,6 +17,9 @@ const UserProvider = ({ children }) => {
 
   const backendURL = import.meta.env.VITE_BACKEND_URL;
 
+  // User Handling
+
+  // Login
   const login = async (email, password) => {
     const response = await axios.post(`${backendURL}/api/users/login`, {
       email,
@@ -32,6 +35,7 @@ const UserProvider = ({ children }) => {
     return data;
   };
 
+  // Register
   const register = async (name, email, password) => {
     const response = await axios.post(`${backendURL}/api/users/register`, {
       name,
@@ -47,6 +51,7 @@ const UserProvider = ({ children }) => {
     return data;
   };
 
+  // Logout
   const logout = () => {
     setIsAuth(false);
     setUser(null);
@@ -55,6 +60,7 @@ const UserProvider = ({ children }) => {
 
   // Todo Handling
 
+  // Add Todo
   const addTodo = async (userId, title, description) => {
     const response = await axios.post(`${backendURL}/api/todos/addTodo`, {
       userId,
@@ -69,6 +75,7 @@ const UserProvider = ({ children }) => {
     return data;
   };
 
+  // Edit Todo
   const editTodo = async (userId, todoId, title, description, isCompleted) => {
     const response = await axios.put(`${backendURL}/api/todos/editTodo`, {
       userId,
@@ -85,8 +92,8 @@ const UserProvider = ({ children }) => {
     return data;
   };
 
+  // Delete Todo
   const deleteTodo = async (userId, todoId) => {
-    console.log("Deleting todo", userId, todoId);
     const response = await axios.delete(`${backendURL}/api/todos/deleteTodo`, {
       data: {
         userId,
@@ -101,12 +108,16 @@ const UserProvider = ({ children }) => {
     return data;
   };
 
+  // Clear Completed Todos
   const clearCompletedTodos = async (userId) => {
-    const response = await axios.delete(`${backendURL}/api/todos/clearCompletedTodos`, {
-      data: {
-        userId,
+    const response = await axios.delete(
+      `${backendURL}/api/todos/clearCompletedTodos`,
+      {
+        data: {
+          userId,
+        },
       },
-    });
+    );
     const data = response.data;
     if (data.status === 200) {
       setUser(data.user);
@@ -115,9 +126,34 @@ const UserProvider = ({ children }) => {
     return data;
   };
 
+  // Alert Component Handling
+
+  const [alertData, setAlertData] = useState({});
+
+  const showAlert = ({ color, icon, title, description, timeout = 1500 }) => {
+    setAlertData({ color, icon, title, description, show: true });
+    setTimeout(() => {
+      setAlertData({});
+    }, timeout);
+  };
+
   return (
     <UserContext.Provider
-      value={{ login, register, logout, isAuth, user, setIsAuth, setUser, addTodo, editTodo, deleteTodo, clearCompletedTodos }}
+      value={{
+        login,
+        register,
+        logout,
+        isAuth,
+        user,
+        setIsAuth,
+        setUser,
+        addTodo,
+        editTodo,
+        deleteTodo,
+        clearCompletedTodos,
+        alertData,
+        showAlert,
+      }}
     >
       {children}
     </UserContext.Provider>

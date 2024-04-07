@@ -1,15 +1,18 @@
 import React, { useContext, useState } from "react";
 import { Modal } from "flowbite-react";
 import { UserContext } from "../UserContext";
+import { HiCheckBadge, HiOutlineXCircle } from "react-icons/hi2";
 
 const ToDo = ({ _id, title, description, isCompleted }) => {
-  const { user, editTodo, deleteTodo } = useContext(UserContext);
+  const { user, editTodo, deleteTodo, setAlertData, showAlert } =
+    useContext(UserContext);
   const [status, setStatus] = useState(isCompleted);
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [newTitle, setTitle] = useState(title);
   const [newDescription, setDescription] = useState(description);
 
+  // Handling edit todo
   const handleEdit = async () => {
     const userId = user._id;
     const response = await editTodo(
@@ -22,22 +25,46 @@ const ToDo = ({ _id, title, description, isCompleted }) => {
     if (response.status === 200) {
       setTitle(newTitle);
       setDescription(newDescription);
+      showAlert({
+        color: "success",
+        icon: HiCheckBadge,
+        title: "Todo updated successfully",
+        description: null, 
+      });
     } else {
-      alert("Failed to update todo");
+      showAlert({
+        color: "failure",
+        icon: HiOutlineXCircle,
+        title: "Failed to update todo",
+        description: null,
+      });
     }
   };
 
+  // Handling delete todo
   const handleDelete = async () => {
     const userId = user._id;
     const response = await deleteTodo(userId, _id);
     if (response.status === 200) {
       setTitle(newTitle);
       setDescription(newDescription);
+      showAlert({
+        color: "success",
+        icon: HiCheckBadge,
+        title: "Todo deleted successfully",
+        description: null,
+      });
     } else {
-      alert("Failed to delete todo");
+      showAlert({
+        color: "failure",
+        icon: HiOutlineXCircle,
+        title: "Failed to delete todo",
+        description: null,
+      });
     }
   };
 
+  // Handling complete todo
   const handleComplete = async () => {
     const userId = user._id;
     const response = await editTodo(
@@ -49,8 +76,19 @@ const ToDo = ({ _id, title, description, isCompleted }) => {
     );
     if (response.status === 200) {
       setStatus(!status);
+      showAlert({
+        color: "success",
+        icon: HiCheckBadge,
+        title: "Todo updated successfully",
+        description: null,
+      });
     } else {
-      alert("Failed to update todo");
+      showAlert({
+        color: "failure",
+        icon: HiOutlineXCircle,
+        title: "Failed to update todo",
+        description: null,
+      });
     }
   };
 
@@ -83,7 +121,7 @@ const ToDo = ({ _id, title, description, isCompleted }) => {
           name="completed"
           checked={status}
           onChange={handleComplete}
-          className="m-3 h-6 w-6 rounded-sm border-0 bg-white p-2 focus:accent-green-400 ring-0 focus:outline-none focus:ring-0 focus:border-0"
+          className="m-3 h-6 w-6 rounded-sm border-0 bg-white p-2 ring-0 focus:border-0 focus:accent-green-400 focus:outline-none focus:ring-0"
         />
       </div>
       <Modal show={showModal} onClose={() => setShowModal(false)} dismissible>
