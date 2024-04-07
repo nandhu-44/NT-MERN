@@ -9,7 +9,7 @@ dotenv.config();
 app.use(bodyParser.json());
 app.use(cors(
     {
-        origin: '*',
+        origin: ["*", "https://todo-nandhu.vercel.app/"],
         methods: 'GET, POST, PUT, DELETE',
         allowedHeaders: 'Content-Type, Authorization'
     }
