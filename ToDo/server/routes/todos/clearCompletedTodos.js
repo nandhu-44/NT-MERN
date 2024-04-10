@@ -9,7 +9,7 @@ router.delete('/', async (req, res) => {
         return res.status(404).json({ status: 404, message: 'User not found' });
     }
 
-    const data = await userSchema.updateOne(
+    await userSchema.updateOne(
         { _id: userId },
         { $pull: { todos: { isCompleted: true } } }
     );

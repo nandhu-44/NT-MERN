@@ -6,15 +6,18 @@ function SignIn() {
   window.scrollTo(0, 0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  checkSignedIn() && navigate("/");
 
   const { login } = useContext(UserContext);
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!email || !password) return;
     setLoading(true);
-    const response = await login(email, password);
+    const response = await login(email, password, remember);
     if (response.status === 200) {
       navigate("/");
     } else {
@@ -24,20 +27,24 @@ function SignIn() {
   };
 
   return (
-    <section className="bg-none">
-      <div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
-        <div className="backdrop-blur-xs border-slate-900-700 w-full rounded-lg border bg-neutral-600 bg-opacity-70 bg-clip-padding shadow backdrop-filter sm:max-w-md md:mt-0 xl:p-0">
-          <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
-            <h1 className="tracking-tightmd:text-2xl text-xl font-bold leading-tight text-white">
-              Sign in to your account
+    <section className="font-supercell bg-none">
+      <div className="mx-auto flex flex-col items-center justify-center px-3 py-28 md:h-screen lg:px-6 lg:py-0">
+        <div className="backdrop-blur-xs w-full rounded-lg bg-neutral-700 bg-opacity-60 bg-clip-padding shadow backdrop-filter sm:max-w-md md:mt-0 xl:p-0">
+          <div className="space-y-4 p-3 md:space-y-6 lg:p-6">
+            <div className="flex flex-row justify-center">
+              <img src="/checkmark.png" alt="" className="size-8" />
+              <h1 className="pl-2 text-3xl text-sky-300">ToDo App</h1>
+            </div>
+            <h1 className="text-sm text-white md:text-xl lg:text-2xl">
+              Welcome Back! Sign in to continue.
             </h1>
             <form className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label
                   htmlFor="email"
-                  className="mb-2 block text-sm font-medium text-white"
+                  className="ld:text-xl mb-2 block text-sm font-medium text-white md:text-base"
                 >
-                  Your email
+                  Email
                 </label>
                 <input
                   type="email"
@@ -45,7 +52,7 @@ function SignIn() {
                   onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   id="email"
-                  className="block w-full rounded-lg  bg-neutral-800  p-2.5 text-white placeholder-gray-400 focus:border-blue-600 focus:outline-none focus:ring-blue-600 sm:text-sm "
+                  className="block w-full rounded-lg bg-neutral-800 p-2.5 text-sm text-white placeholder-gray-400 md:text-base"
                   placeholder="name@company.com"
                   required={true}
                 />
@@ -53,7 +60,7 @@ function SignIn() {
               <div>
                 <label
                   htmlFor="password"
-                  className="mb-2 block text-sm font-medium text-white"
+                  className="ld:text-xl mb-2 block text-sm font-medium text-white md:text-base"
                 >
                   Password
                 </label>
@@ -64,18 +71,28 @@ function SignIn() {
                   name="password"
                   id="password"
                   placeholder="••••••••••"
-                  className="block w-full rounded-lg  bg-neutral-800  p-2.5 text-white placeholder-gray-400 focus:border-blue-600 focus:outline-none focus:ring-blue-600 sm:text-sm "
+                  className="block w-full rounded-lg bg-neutral-800 p-2.5 text-sm text-white placeholder-gray-400 md:text-base"
                   required={true}
                 />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
-                  <div className="ml-3 text-sm"> </div>
+                  <input
+                    type="checkbox"
+                    name="remember"
+                    id="remember"
+                    value={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                    className="m-1 mr-2 rounded-sm p-1 outline-none checked:bg-blue-500"
+                  />
+                  <label htmlFor="remember" className="text-white">
+                    Stay signed in
+                  </label>
                 </div>
                 <div className="right-0 flex text-pretty">
                   <Link
                     to="/forgot-password"
-                    className="text-sm font-medium text-blue-600  hover:underline dark:text-blue-500"
+                    className="text-sm font-medium text-blue-600 hover:underline"
                   >
                     Forgot password?
                   </Link>
@@ -84,7 +101,7 @@ function SignIn() {
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className={`flex w-full items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${
+                className={`flex w-full items-center justify-center rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 ${
                   loading ? "cursor-not-allowed opacity-50" : ""
                 }`}
               >
@@ -94,7 +111,7 @@ function SignIn() {
                       width="20"
                       height="20"
                       fill="currentColor"
-                      className="mr-2 animate-spin "
+                      className="mr-2 animate-spin"
                       viewBox="0 0 1792 1792"
                       xmlns="http://www.w3.org/2000/svg"
                     >
@@ -107,7 +124,7 @@ function SignIn() {
                 )}
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet?{" "}
+                Don't have an account yet?{" "}
                 <Link
                   to="/signup"
                   className="font-medium text-blue-500 hover:underline"
@@ -122,5 +139,14 @@ function SignIn() {
     </section>
   );
 }
+
+const checkSignedIn = () => {
+  const remember = localStorage.getItem("remember");
+  if(!remember) localStorage.removeItem("user");
+  const userData = remember
+    ? localStorage.getItem("user")
+    : sessionStorage.getItem("user");
+  return userData ? true : false;
+};
 
 export default SignIn;

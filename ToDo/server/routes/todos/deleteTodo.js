@@ -1,10 +1,6 @@
 const router = require('express').Router();
 const userSchema = require('../../database/models/userSchema');
 
-router.get('/', async (req, res) => {
-    res.send('Hello from todos');
-});
-
 router.delete('/', async (req, res) => {
     const { userId, todoId } = req.body;
     const user = await userSchema.findById(userId);

@@ -8,7 +8,8 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const userData = sessionStorage.getItem("user");
+    const remember = localStorage.getItem("remember");
+    const userData = remember ? localStorage.getItem("user") : sessionStorage.getItem("user");
     if (userData) {
       setIsAuth(true);
       setUser(JSON.parse(userData));
@@ -20,17 +21,22 @@ const UserProvider = ({ children }) => {
   // User Handling
 
   // Login
-  const login = async (email, password) => {
+  const login = async (email, password, remember) => {
     const response = await axios.post(`${backendURL}/api/users/login`, {
       email,
       password,
     });
 
     const data = response.data;
+    if (remember) {
+      localStorage.setItem("remember", true);
+    }
     if (data.status === 200) {
       setIsAuth(true);
       setUser(data.user);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
+      remember
+        ? localStorage.setItem("user", JSON.stringify(data.user))
+        : sessionStorage.setItem("user", JSON.stringify(data.user));
     }
     return data;
   };
@@ -46,7 +52,10 @@ const UserProvider = ({ children }) => {
     if (data.status === 201) {
       setIsAuth(true);
       setUser(data.user);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
+      const remember = localStorage.getItem("remember");
+      remember
+        ? localStorage.setItem("user", JSON.stringify(data.user))
+        : sessionStorage.setItem("user", JSON.stringify(data.user));
     }
     return data;
   };
@@ -55,7 +64,20 @@ const UserProvider = ({ children }) => {
   const logout = () => {
     setIsAuth(false);
     setUser(null);
-    sessionStorage.removeItem("user");
+    const remember = localStorage.getItem("remember");
+    remember
+      ? localStorage.removeItem("user")
+      : sessionStorage.removeItem("user");
+    localStorage.removeItem("remember");
+  };
+
+  // Forgot Password
+  const forgotPassword = async (email) => {
+    const response = await axios.post(
+      `${backendURL}/api/users/forgot-password`,
+      { email },
+    );
+    return response?.data;
   };
 
   // Todo Handling
@@ -70,7 +92,10 @@ const UserProvider = ({ children }) => {
     const data = response.data;
     if (data.status === 201) {
       setUser(data.user);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
+      const remember = localStorage.getItem("remember");
+      remember
+        ? localStorage.setItem("user", JSON.stringify(data.user))
+        : sessionStorage.setItem("user", JSON.stringify(data.user));
     }
     return data;
   };
@@ -87,7 +112,10 @@ const UserProvider = ({ children }) => {
     const data = response.data;
     if (data.status === 200) {
       setUser(data.user);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
+      const remember = localStorage.getItem("remember");
+      remember
+        ? localStorage.setItem("user", JSON.stringify(data.user))
+        : sessionStorage.setItem("user", JSON.stringify(data.user));
     }
     return data;
   };
@@ -103,7 +131,10 @@ const UserProvider = ({ children }) => {
     const data = response.data;
     if (data.status === 200) {
       setUser(data.user);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
+      const remember = localStorage.getItem("remember");
+      remember
+        ? localStorage.setItem("user", JSON.stringify(data.user))
+        : sessionStorage.setItem("user", JSON.stringify(data.user));
     }
     return data;
   };
@@ -121,7 +152,10 @@ const UserProvider = ({ children }) => {
     const data = response.data;
     if (data.status === 200) {
       setUser(data.user);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
+      const remember = localStorage.getItem("remember");
+      remember
+        ? localStorage.setItem("user", JSON.stringify(data.user))
+        : sessionStorage.setItem("user", JSON.stringify(data.user));
     }
     return data;
   };
@@ -153,6 +187,7 @@ const UserProvider = ({ children }) => {
         clearCompletedTodos,
         alertData,
         showAlert,
+        forgotPassword
       }}
     >
       {children}

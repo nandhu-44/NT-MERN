@@ -2,10 +2,6 @@ const router = require('express').Router();
 const userSchema = require('../../database/models/userSchema');
 const { v4 } = require('uuid');
 
-router.get('/', async (req, res) => {
-    res.send('Hello from todos');
-});
-
 router.post('/', async (req, res) => {
     const { userId, title, description } = req.body;
     const user = await userSchema.findById(userId);
@@ -17,7 +13,9 @@ router.post('/', async (req, res) => {
     user.todos.push({
         _id: v4(),
         title,
-        description
+        description,
+        createdAt: new Date(),
+        isCompleted: false
     });
     await user.save();
     let userObj = user.toObject();
