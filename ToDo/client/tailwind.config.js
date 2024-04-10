@@ -7,7 +7,12 @@ export default {
     flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "supercell": ["Lilita One", "sans-serif"],
+        "poppins": ["Poppins", "sans-serif"],
+      },
+    },
   },
   plugins: [
     flowbite.plugin(),

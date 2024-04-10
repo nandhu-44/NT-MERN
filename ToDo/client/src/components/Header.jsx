@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,19 +12,23 @@ const Header = () => {
     navigate("/signin");
   };
   return (
-    <nav className="flex justify-between p-4">
+    <nav className="flex justify-between p-2 lg:p-4">
       <Link to="/" className="flex flex-row">
-        <img src="/checkmark.png" alt="icon" className="h-8 w-8 rounded-full" />
-        <h1 className="text-pretty px-2 font-sans text-2xl tracking-tight  text-white hover:text-blue-300">
+        <img
+          src="/checkmark.png"
+          alt="icon"
+          className="h-6 w-6 rounded-full lg:h-8 lg:w-8"
+        />
+        <h1 className="font-supercell text-pretty px-2 text-base text-sky-300 lg:text-2xl">
           ToDo App
         </h1>
       </Link>
       <div className="flex flex-row">
-        <h3 className="font-sane px-4 py-2 font-semibold text-white hover:cursor-pointer">
+        <h3 className="font-supercell  px-2 py-1 text-[0.875rem] text-white hover:cursor-pointer lg:px-4 lg:py-2 lg:text-xl">
           Welcome {user?.name}
         </h3>
         <button
-          className="rounded-lg bg-blue-400 p-1 px-4 py-2 font-sans font-semibold text-white hover:bg-blue-500"
+          className="font-supercell rounded-lg bg-blue-500 px-4 py-0.5 text-[0.875rem] text-white hover:bg-blue-600 lg:py-2 lg:text-xl"
           onClick={() => handleLogout()}
         >
           Logout

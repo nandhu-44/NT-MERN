@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
 import Header from "../components/Header";
-import CreateTodo from "../components/CreateTodo";
+import CreateTodo from "../components/Controls";
 import ToDos from "../components/ToDos";
 import AlertComponent from "../components/AlertComponent";
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
@@ -26,7 +26,7 @@ function SignIn() {
   return (
     <section className="bg-none">
       <div className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
-        <div className="backdrop-blur-xs w-full rounded-lg border border-slate-900-700 bg-neutral-600 bg-opacity-70 bg-clip-padding shadow backdrop-filter sm:max-w-md md:mt-0 xl:p-0">
+        <div className="backdrop-blur-xs border-slate-900-700 w-full rounded-lg border bg-neutral-600 bg-opacity-70 bg-clip-padding shadow backdrop-filter sm:max-w-md md:mt-0 xl:p-0">
           <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
             <h1 className="tracking-tightmd:text-2xl text-xl font-bold leading-tight text-white">
               Sign in to your account
@@ -70,11 +70,9 @@ function SignIn() {
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
-                  <div className="ml-3 text-sm">
-                      {" "}
-                  </div>
+                  <div className="ml-3 text-sm"> </div>
                 </div>
-                <div className="flex right-0 text-pretty">
+                <div className="right-0 flex text-pretty">
                   <Link
                     to="/forgot-password"
                     className="text-sm font-medium text-blue-600  hover:underline dark:text-blue-500"
