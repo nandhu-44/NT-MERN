@@ -80,6 +80,24 @@ const UserProvider = ({ children }) => {
     return response?.data;
   };
 
+  // Check Reset Token
+  const checkResetToken = async (userId, resetToken) => {
+    const response = await axios.post(
+      `${backendURL}/api/users/check-reset-token`,
+      { userId, resetToken },
+    );
+    return response?.data;
+  };
+
+  // Reset Password
+  const resetPassword = async (userId, resetToken, password) => {
+    const response = await axios.post(
+      `${backendURL}/api/users/reset-password`,
+      { userId, resetToken, password },
+    );
+    return response?.data;
+  };
+
   // Todo Handling
 
   // Add Todo
@@ -187,7 +205,9 @@ const UserProvider = ({ children }) => {
         clearCompletedTodos,
         alertData,
         showAlert,
-        forgotPassword
+        forgotPassword,
+        checkResetToken,
+        resetPassword,
       }}
     >
       {children}

@@ -41,13 +41,13 @@ function SignUp() {
               <h1 className="pl-2 text-3xl text-sky-300">ToDo App</h1>
             </div>
             <h1 className="text-sm text-white md:text-xl lg:text-2xl">
-              Sign up for an account
+              Create an account to continue.
             </h1>
             <form className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label
                   htmlFor="name"
-                  className="ld:text-xl mb-2 block text-sm font-medium text-white md:text-base"
+                  className="lg:text-xl mb-2 block text-sm font-medium text-white md:text-base"
                 >
                   Your name
                 </label>
@@ -65,7 +65,7 @@ function SignUp() {
               <div>
                 <label
                   htmlFor="email"
-                  className="ld:text-xl mb-2 block text-sm font-medium text-white md:text-base"
+                  className="lg:text-xl mb-2 block text-sm font-medium text-white md:text-base"
                 >
                   Email
                 </label>
@@ -83,7 +83,7 @@ function SignUp() {
               <div>
                 <label
                   htmlFor="password"
-                  className="ld:text-xl mb-2 block text-sm font-medium text-white md:text-base"
+                  className="lg:text-xl mb-2 block text-sm font-medium text-white md:text-base"
                 >
                   Password
                 </label>
@@ -101,7 +101,7 @@ function SignUp() {
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="ld:text-xl mb-2 block text-sm font-medium text-white md:text-base"
+                  className="lg:text-xl mb-2 block text-sm font-medium text-white md:text-base"
                 >
                   Confirm Password
                 </label>

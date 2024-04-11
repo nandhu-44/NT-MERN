@@ -42,7 +42,7 @@ function SignIn() {
               <div>
                 <label
                   htmlFor="email"
-                  className="ld:text-xl mb-2 block text-sm font-medium text-white md:text-base"
+                  className="lg:text-xl mb-2 block text-sm font-medium text-white md:text-base"
                 >
                   Email
                 </label>
@@ -60,7 +60,7 @@ function SignIn() {
               <div>
                 <label
                   htmlFor="password"
-                  className="ld:text-xl mb-2 block text-sm font-medium text-white md:text-base"
+                  className="lg:text-xl mb-2 block text-sm font-medium text-white md:text-base"
                 >
                   Password
                 </label>
