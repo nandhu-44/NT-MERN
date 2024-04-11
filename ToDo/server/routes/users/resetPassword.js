@@ -3,9 +3,11 @@ const userSchema = require("../../database/models/userSchema");
 const passwordResetSchema = require(
   "../../database/models/passwordResetSchema",
 );
+const cipherGuard = require("cipher-guard");
 
 router.post("/", async (req, res) => {
   const { userId, resetToken, password } = req.body;
+  const hashedPassword = cipherGuard.encrypt(password, process.env.CIPHER_GUARD_KEY, process.env.CIPHER_GUARD_SALT);
   const reset = await passwordResetSchema.findOne({
     userId: userId,
     resetToken: resetToken,
@@ -21,7 +23,7 @@ router.post("/", async (req, res) => {
   }
 
   const user = await userSchema.findById(userId);
-  user.password = password;
+  user.password = hashedPassword;
   await user.save();
 
   await passwordResetSchema.deleteOne({ userId: userId });
