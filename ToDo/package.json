@@ -20,5 +20,8 @@
   "homepage": "https://github.com/nandhu-44/NT-MERN#readme",
   "dependencies": {
     "react-icons": "^5.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
