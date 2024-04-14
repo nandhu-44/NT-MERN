@@ -7,13 +7,10 @@ const routes = require("./routes/route");
 dotenv.config();
 
 app.use(bodyParser.json());
-app.use(cors(
-  {
-    origin: "*",
-    methods: "GET, POST, PUT, DELETE",
-    allowedHeaders: "Content-Type, Authorization",
-  },
-));
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
 
 console.clear();
 
