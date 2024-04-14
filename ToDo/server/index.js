@@ -7,11 +7,15 @@ const routes = require("./routes/route");
 dotenv.config();
 
 app.use(bodyParser.json());
-app.use(cors({
-  origin: process.env.CLIENT_URL
-}));
-
+app.use(cors(
+  {
+    origin: process.env?.CLIENT_URL ?? "*",
+    methods: "GET, POST, PUT, DELETE",
+    allowedHeaders: "Content-Type, Authorization",
+  },
+));
 console.clear();
+console.log("App running on : " + process.env.CLIENT_URL);
 
 require("./database/mongoose.js");
 
